@@ -6,6 +6,8 @@ const ctx = createContext();
 const cellsize = 20;
 const rowscount = 15;
 const offset = 10;
+const arrowKeys = [37, 38, 39, 40];
+const arrowKeysLast = [39, 40, 37, 38];
 
 const wall = (rowscount / 2 ^ 0);
 let firstDraw = 1;
@@ -38,56 +40,54 @@ function loop() {
 
 window.requestAnimationFrame(loop);
 
-let lastKeyCode = 40; //Snake watch down
+let wrongKeyCode = 40; //Snake watch down
 //console.log("s1 " + snake.direction[0] + snake.direction[1]);
 document.onkeydown = function (e) {
   firstDraw = 0;
   //console.log(`You ${snake.direction[0]}  ${snake.direction[1]}`);
 
   // Snake can't turn off 180 degree
-
-  switch (e.keyCode) {
-    case 37: //left
-      console.log("key 37 " + lastKeyCode);
-      if (lastKeyCode != 39) {
+  if ((arrowKeys.indexOf(e.keyCode) != -1) && ((e.keyCode) != wrongKeyCode)) {
+    switch (e.keyCode) {
+      case 37: //left
+        console.log("key 37 " + wrongKeyCode);
         console.log("make37");
         if (snake.direction[0] !== -wall) {
           snake.direction[0] = snake.direction[0] - 1;
-          lastKeyCode = 37;
+          wrongKeyCode = 39;
         } else {
           snake.direction[0] = wall;
         }
-      }
-      break;
-    case 38: //up
-      if (snake.direction[1] !== -wall) {
-        snake.direction[1] = snake.direction[1] - 1;
-        lastKeyCode = 38;
-      } else {
-        snake.direction[1] = wall;
-      }
-      break;
-    case 39: //right
-      console.log("key 39 " + lastKeyCode);
-      console.log("make39");
-      if (snake.direction[0] !== wall) {
-        snake.direction[0] = snake.direction[0] + 1;
-        lastKeyCode = 39;
-      } else {
-        snake.direction[0] = -wall;
-      }
-      break;
-    case 40: //down
-      if (snake.direction[1] !== wall) {
-        snake.direction[1] = snake.direction[1] + 1;
-        lastKeyCode = 40;
-      } else {
-        snake.direction[1] = -wall;
-      }
-      break;
+        break;
+      case 38: //up
+        if (snake.direction[1] !== -wall) {
+          snake.direction[1] = snake.direction[1] - 1;
+          wrongKeyCode = 40;
+        } else {
+          snake.direction[1] = wall;
+        }
+        break;
+      case 39: //right
+        console.log("key 39 " + wrongKeyCode);
+        console.log("make39");
+        if (snake.direction[0] !== wall) {
+          snake.direction[0] = snake.direction[0] + 1;
+          wrongKeyCode = 37;
+        } else {
+          snake.direction[0] = -wall;
+        }
+        break;
+      case 40: //down
+        if (snake.direction[1] !== wall) {
+          snake.direction[1] = snake.direction[1] + 1;
+          wrongKeyCode = 38;
+        } else {
+          snake.direction[1] = -wall;
+        }
+        break;
+    }
+    if (!firstDraw) {
+      snake.move(rowscount);
+    } else snake.toDraw();
   }
-  if (!firstDraw) {
-    snake.move(rowscount);
-  } else snake.toDraw();
-
 };
