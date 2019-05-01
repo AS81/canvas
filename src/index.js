@@ -1,24 +1,23 @@
 import '@babel/polyfill';
 import { createContext } from './helpers/canvas';
 import Snake from './snake.js';
+import Apple from './apple.js';
 
 const ctx = createContext();
 const cellsize = 20;
 const rowscount = 15;
 const offset = 10;
 const arrowKeys = [37, 38, 39, 40];
-const arrowKeysLast = [39, 40, 37, 38];
 
 const wall = (rowscount / 2 ^ 0);
 let firstDraw = 1;
 const snake = new Snake(ctx, rowscount, cellsize);
+const apple = new Apple(ctx, rowscount, cellsize);
 /**
  * @param {number} elapsedTime
  */
 function loop() {
   // eslint-disable-next-line
-
-
   ctx.clearRect(0, 0, innerWidth, innerHeight);
   ctx.beginPath();
   ctx.save();
@@ -33,6 +32,7 @@ function loop() {
 
   ctx.stroke();
   snake.toDraw();
+  apple.toDraw();
   ctx.restore();
 
   window.requestAnimationFrame(loop)
@@ -40,7 +40,7 @@ function loop() {
 
 window.requestAnimationFrame(loop);
 
-let wrongKeyCode = 40; //Snake watch down
+let wrongKeyCode = 38; //Snake watch down
 //console.log("s1 " + snake.direction[0] + snake.direction[1]);
 document.onkeydown = function (e) {
   firstDraw = 0;

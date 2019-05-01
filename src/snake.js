@@ -10,6 +10,7 @@ export default class Snake {
         this.rowscount = rowscount;
         this.cellsize = cellsize;
         this.direction = [0, 0];
+        this.ctx.fillStyle = 'black';
         this.parts = [[rowscount / 2 ^ 0, (rowscount / 2 ^ 0)],
         [rowscount / 2 ^ 0, (rowscount / 2 ^ 0) - 1]];
 
