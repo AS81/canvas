@@ -13,6 +13,7 @@ const wall = (rowscount / 2 ^ 0);
 let firstDraw = 1;
 const snake = new Snake(ctx, rowscount, cellsize);
 const apple = new Apple(ctx, rowscount, cellsize);
+let applePart;
 /**
  * @param {number} elapsedTime
  */
@@ -87,7 +88,7 @@ document.onkeydown = function (e) {
         break;
     }
     if (!firstDraw) {
-      snake.move(rowscount);
+      snake.move(rowscount,apple.part);
     } else snake.toDraw();
   }
 };

@@ -1,3 +1,5 @@
+import Apple from "./apple";
+
 export default class Snake {
     /**
      * 
@@ -16,6 +18,7 @@ export default class Snake {
 
         console.log("START " + this.parts[0][0] + " + " + this.parts[0][1] + "and"
             + this.parts[1][0] + " + " + this.parts[1][1]);
+        let partsLastElement = [0,0];
         //   debugger;  
 
     }
@@ -27,14 +30,21 @@ export default class Snake {
         });
     }
 
-    move(rowscount) {
-        console.log((rowscount / 2 ^ 0) + " - " + this.direction[0] + " - " + (rowscount / 2 ^ 0) + " - " + this.direction[1]);
-        this.partsNew = [[(rowscount / 2 ^ 0) + this.direction[0], (rowscount / 2 ^ 0) + this.direction[1]],
+    move(rowscount,applePart,partsLastElement) {
+        //console.log((rowscount / 2 ^ 0) + " - " + this.direction[0] + " - " + (rowscount / 2 ^ 0) + " - " + this.direction[1]);
+        partsLastElement = this.parts[1];
+        this.partsNew = [[(rowscount / 2 ^ 0) + this.direction[0],
+        (rowscount / 2 ^ 0) + this.direction[1]],
         this.parts[0]];
-        console.log(this.partsNew);
-        console.log(this.partsNew[0][0] + " + " + this.partsNew[0][1] + "and"
-            + this.partsNew[1][0] + " + " + this.partsNew[1][1]);
         this.parts = this.partsNew;
+        console.log("applePart[0]) "+ applePart[0]  + applePart[1]);
+        console.log("this.parts[0][0]"+this.parts[0][0]+ this.parts[0][1]);
+        if ((this.parts[0][0] == applePart[0]) &&
+         (this.parts[0][1] == applePart[1])) {
+             console.log("partsLastElement"+partsLastElement+ typeof(partsLastElement));
+             console.log("this.parts[0] "+typeof(this.parts[0]));
+            this.parts.push(partsLastElement);
+        }
         this.toDraw();
     }
 }
