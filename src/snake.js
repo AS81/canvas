@@ -16,7 +16,8 @@ export default class Snake {
     //this.directionNew = undefined;
     this.time = 0;
   }
-  toDraw() {
+  toDraw(apple) {
+    console.log(this.canEat(apple));
     this.parts.forEach(([x, y]) => {
       this.ctx.fillRect(x * this.cellsize,
         y * this.cellsize, this.cellsize, this.cellsize);
@@ -65,6 +66,7 @@ export default class Snake {
 
 canEat(apple) {
   //return true if position Head = pos Apple
+  return ((this.parts[0][0] == apple.position[0]) && (this.parts[0][1] == apple.position[1]));
 }
 
 }
