@@ -33,7 +33,9 @@ function loop() {
 
   ctx.stroke();
   snake.toDraw();
-  apple.toDraw();
+
+  ctx.beginPath();apple.toDraw();ctx.stroke();
+  
   ctx.restore();
 
   window.requestAnimationFrame(loop)

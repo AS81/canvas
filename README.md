@@ -9,4 +9,3 @@ npm run watch
 
 Open [http://localhost:8080](http://localhost:8080)
 
-Why ctx is green in snake?

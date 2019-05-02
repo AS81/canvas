@@ -23,7 +23,7 @@ export default class Snake {
 
     }
     toDraw() {
-        console.log('toDraw');
+      //  console.log('toDraw');
         this.parts.forEach(([x, y]) => {
             this.ctx.fillRect(x * this.cellsize,
                 y * this.cellsize, this.cellsize, this.cellsize);
@@ -33,16 +33,17 @@ export default class Snake {
     move(rowscount,applePart,partsLastElement) {
         //console.log((rowscount / 2 ^ 0) + " - " + this.direction[0] + " - " + (rowscount / 2 ^ 0) + " - " + this.direction[1]);
         partsLastElement = this.parts[1];
+
         this.partsNew = [[(rowscount / 2 ^ 0) + this.direction[0],
         (rowscount / 2 ^ 0) + this.direction[1]],
         this.parts[0]];
+        
         this.parts = this.partsNew;
-        console.log("applePart[0]) "+ applePart[0]  + applePart[1]);
-        console.log("this.parts[0][0]"+this.parts[0][0]+ this.parts[0][1]);
-        if ((this.parts[0][0] == applePart[0]) &&
-         (this.parts[0][1] == applePart[1])) {
-             console.log("partsLastElement"+partsLastElement+ typeof(partsLastElement));
-             console.log("this.parts[0] "+typeof(this.parts[0]));
+        
+        // console.log("applePart[0]) "+ applePart[0]  + applePart[1]);
+        // console.log("this.parts[0][0]"+this.parts[0][0]+ this.parts[0][1]);
+        
+        if ((this.parts[0][0] == applePart[0]) && (this.parts[0][1] == applePart[1])) {
             this.parts.push(partsLastElement);
         }
         this.toDraw();
