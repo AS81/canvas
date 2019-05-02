@@ -1,10 +1,16 @@
 import '@babel/polyfill';
 import { createContext } from './helpers/canvas';
+import Snake from './snake.js';
+import Apple from './apple.js';
 
 const ctx = createContext();
-
-
+const cellsize = 20;
+const rowscount = 15;
+const offset = 10;
 let lastFrameTime = 0;
+
+const snake = new Snake(ctx, rowscount, cellsize);
+const apple = new Apple(ctx, rowscount, cellsize);
 /**
  * @param {number} elapsedTime
  */
@@ -13,16 +19,54 @@ function loop(elapsedTime) {
   const dt = elapsedTime - lastFrameTime;
   lastFrameTime = elapsedTime;
 
-  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-
+  ctx.clearRect(0, 0, window.innerWidth, innerHeight);
   ctx.beginPath();
-  ctx.moveTo(0, 0);
-  ctx.lineTo(100, 100);
-  ctx.closePath();
+  ctx.save();
+  ctx.translate(offset, offset);
+
+  for (let i = 0; i <= rowscount; i++) {
+    ctx.moveTo(i * cellsize, 0);
+    ctx.lineTo(i * cellsize, cellsize * rowscount);
+    ctx.moveTo(0, i * cellsize);
+    ctx.lineTo(cellsize * rowscount, i * cellsize);
+  }
 
   ctx.stroke();
+  snake.step(dt);
+  snake.toDraw();
+
+apple.Draw();
+
+  ctx.restore();
 
   window.requestAnimationFrame(loop)
 }
 
 window.requestAnimationFrame(loop);
+
+document.addEventListener('keydown',function(e) {
+  switch (e.keyCode) {
+    case 38:
+      if (snake.isMovingHorizontal()) {
+        snake.directionNew = [0,-1];
+      }
+      break;
+      case 39:
+      if (snake.isMovingVertical()) {
+        snake.directionNew = [1,0];
+      }
+      break;
+      case 40:
+      if (snake.isMovingHorizontal()) {
+        snake.directionNew = [0,1]; 
+      }
+      break;
+      case 37:
+      if (snake.isMovingVertical()) {
+        snake.directionNew = [-1,0];
+      }
+      break;
+    default:
+      break;
+  }
+})
