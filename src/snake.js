@@ -23,11 +23,12 @@ export default class Snake {
         y * this.cellsize, this.cellsize, this.cellsize);
     });
   }
+
   step(dt) {
     //console.log(this.parts);
     this.time += dt;
-    this.headX = this.parts[0][0]+ this.direction[0];
-    this.headY = this.parts[0][1]+ this.direction[1];
+    this.headX = this.parts[0][0] + this.direction[0];
+    this.headY = this.parts[0][1] + this.direction[1];
 
     if (this.time > 250) {
       if (this.directionNew) {
@@ -36,16 +37,17 @@ export default class Snake {
       }
 
       if (((this.headX >= 0) && (this.headX < this.rowscount)) &&
-       ((this.headY >= 0) && (this.headY < this.rowscount))) {
+        ((this.headY >= 0) && (this.headY < this.rowscount))) {
 
-      this.parts.pop();
-      this.parts.unshift([this.parts[0][0] + this.direction[0],
-      this.parts[0][1] + this.direction[1]]);
-      this.time = 0; // С‡С‚Рѕ Р±С‹ РЅРµ РЅР°РєР°РїР»РёРІР°Р»РёСЃСЊ РѕСЃС‚Р°С‚РєРё... " -= 1000 "
+        this.parts.pop();
+        this.parts.unshift([this.parts[0][0] + this.direction[0],
+        this.parts[0][1] + this.direction[1]]);
+        this.time = 0; // С‡С‚Рѕ Р±С‹ РЅРµ РЅР°РєР°РїР»РёРІР°Р»РёСЃСЊ РѕСЃС‚Р°С‚РєРё... " -= 1000 "
 
       } else {
         //alert('Game over!');
-      this.reset()}
+        this.reset()
+      }
 
     }
   }
@@ -64,9 +66,11 @@ export default class Snake {
     this.direction = [0, -1];
   }
 
-canEat(apple) {
-  //return true if position Head = pos Apple
-  return ((this.parts[0][0] == apple.position[0]) && (this.parts[0][1] == apple.position[1]));
-}
+  canEat(apple) {
+    //return true if position Head = pos Apple
+    return ((this.parts[0][0] == apple.position[0]) && (this.parts[0][1] == apple.position[1]));
+  }
+
+
 
 }
