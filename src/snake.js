@@ -15,9 +15,10 @@ export default class Snake {
     this.direction = [0, -1];
     //this.directionNew = undefined;
     this.time = 0;
+    this.fed = 0;
   }
-  toDraw(apple) {
-    console.log(this.canEat(apple));
+  toDraw() {
+    //console.log("snake. toDraw - Can eat:" + this.canEat(apple));
     this.parts.forEach(([x, y]) => {
       this.ctx.fillRect(x * this.cellsize,
         y * this.cellsize, this.cellsize, this.cellsize);
@@ -38,17 +39,28 @@ export default class Snake {
 
       if (((this.headX >= 0) && (this.headX < this.rowscount)) &&
         ((this.headY >= 0) && (this.headY < this.rowscount))) {
-
-        this.parts.pop();
+        if (!this.fed) {
+          this.parts.pop();
+        } else {
+          this.fed = false;
+        }
         this.parts.unshift([this.parts[0][0] + this.direction[0],
         this.parts[0][1] + this.direction[1]]);
         this.time = 0; // С‡С‚Рѕ Р±С‹ РЅРµ РЅР°РєР°РїР»РёРІР°Р»РёСЃСЊ РѕСЃС‚Р°С‚РєРё... " -= 1000 "
 
       } else {
-        //alert('Game over!');
+        alert('Game over!');
         this.reset()
       }
 
+      for (let i = 1; i < this.parts.length; i++) {
+        if ((this.headX == this.parts[i][0]) &&
+          (this.headY == this.parts[i][1])) {
+            console.log(this.parts[i][0]+':'+this.parts[i][1]);
+            alert('Game over! You eat yourself!');
+            this.reset();
+        }
+      }
     }
   }
 

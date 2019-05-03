@@ -10,8 +10,9 @@ const offset = 10;
 let lastFrameTime = 0;
 let paused = 0;
 
+
 const snake = new Snake(ctx, rowscount, cellsize);
-const apple = new Apple(ctx, rowscount, cellsize);
+let apple = new Apple(ctx, rowscount, cellsize);
 /**
  * @param {number} elapsedTime
  */
@@ -35,7 +36,19 @@ function loop(elapsedTime) {
 
     ctx.stroke();
     snake.step(dt);
-    snake.toDraw(apple);
+    if (snake.canEat(apple)) {
+      apple = new Apple(ctx, rowscount, cellsize);
+      snake.fed = true;
+    }
+    for (let i = 1; i < snake.parts.length; i++) {
+      if ((apple.position[0] == snake.parts[i][0]) &&
+        (apple.position[1] == snake.parts[i][1])) {
+          console.log('Apple cant apper in body of snake!');
+          apple = new Apple(ctx, rowscount, cellsize);
+        }
+      }
+    apple.step(dt);
+    snake.toDraw();
     apple.toDraw();
     ctx.restore();
   }
