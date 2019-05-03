@@ -11,7 +11,7 @@ export default class Apple {
     return (Math.floor(Math.random() * this.rowscount));
   }
 
-  Draw() {
+  toDraw() {
     this.ctx.save();
     this.ctx.fillStyle = "green";
     this.ctx.fillRect(this.position[0] * this.cellsize,

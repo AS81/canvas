@@ -36,7 +36,7 @@ function loop(elapsedTime) {
     ctx.stroke();
     snake.step(dt);
     snake.toDraw(apple);
-    apple.Draw();
+    apple.toDraw();
     ctx.restore();
   }
 
